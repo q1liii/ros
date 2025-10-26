@@ -1,0 +1,43 @@
+local_costmap:
+  # ========== 坐标系 ==========
+  global_frame: odom
+  robot_base_frame: base_link
+  
+  # ========== 更新频率 ==========
+  update_frequency: 5.0
+  publish_frequency: 2.0
+  transform_tolerance: 0.5
+  
+  # ========== 滚动窗口 ==========
+  rolling_window: true
+  width: 8.0                       # 局部地图宽度8m
+  height: 8.0                      # 局部地图高度8m
+  resolution: 0.05                 # 更高的分辨率
+  
+  # ========== 插件层 ==========
+  plugins:
+    - {name: obstacle_layer,      type: "costmap_2d::VoxelLayer"}
+    - {name: inflation_layer,     type: "costmap_2d::InflationLayer"}
+  
+  # ========== 障碍物层 ==========
+  obstacle_layer:
+    enabled: true
+    observation_sources: scan
+    scan:
+      topic: /scan
+      sensor_frame: camera_init
+      data_type: LaserScan
+      marking: true
+      clearing: true
+      min_obstacle_height: 0.0
+      max_obstacle_height: 2.0
+      obstacle_range: 5.0
+      raytrace_range: 6.0
+    track_unknown_space: false
+    combination_method: 1
+  
+  # ========== 膨胀层 ==========
+  inflation_layer:
+    enabled: true
+    inflation_radius: 0.4
+    cost_scaling_factor: 5.0

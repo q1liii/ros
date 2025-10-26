@@ -1,0 +1,53 @@
+<launch>
+    <!-- OctoMap Server 节点 -->
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="screen">
+        <!-- 输入点云话题 -->
+        <remap from="cloud_in" to="/cloud_registered"/>
+        
+        <!-- ========== 基础参数 ========== -->
+        <param name="resolution" value="0.1" />              <!-- 地图分辨率(m) -->
+        <param name="frame_id" type="string" value="camera_init" />  <!-- 全局坐标系 -->
+        <param name="sensor_model/max_range" value="20.0" /> <!-- 最大感知距离(m) -->
+        
+        <!-- ========== 2D地图投影参数 ========== -->
+        <param name="pointcloud_min_z" value="0.1" />   <!-- 投影到2D的最小高度 -->
+        <param name="pointcloud_max_z" value="2.0" />   <!-- 投影到2D的最大高度 -->
+        <param name="occupancy_min_z" value="-0.1" />   <!-- 占据检测最小高度 -->
+        <param name="occupancy_max_z" value="2.5" />    <!-- 占据检测最大高度 -->
+        
+        <!-- ========== 地图发布设置 ========== -->
+        <param name="latch" value="true" />             <!-- 锁存地图话题 -->
+        <param name="publish_free_space" value="false"/> <!-- 是否发布自由空间 -->
+        
+        <!-- ========== 滤波参数 ========== -->
+        <param name="filter_ground" value="false" />    <!-- 不滤除地面 -->
+        <param name="filter_speckles" value="true" />   <!-- 过滤孤立点 -->
+        <param name="base_frame_id" value="base_link" /><!-- 机器人基座坐标系（可选） -->
+        
+        <!-- ========== 更新参数 ========== -->
+        <param name="height_map" value="false" />       <!-- 不生成高度图 -->
+        <param name="colored_map" value="false" />      <!-- 不使用彩色地图 -->
+    </node>
+
+    <!-- 点云转LaserScan节点 -->
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" 
+          name="pointcloud_to_laserscan" output="screen">
+        <remap from="cloud_in" to="/cloud_registered"/>
+        <remap from="scan" to="/scan"/>
+        
+        <param name="target_frame" value="camera_init" />
+        <param name="transform_tolerance" value="0.01" />
+        <param name="min_height" value="0.0" />
+        <param name="max_height" value="2.0" />
+        
+        <param name="angle_min" value="-3.14159" />
+        <param name="angle_max" value="3.14159" />
+        <param name="angle_increment" value="0.0087" />  <!-- 约0.5度 -->
+        <param name="scan_time" value="0.1" />
+        <param name="range_min" value="0.3" />
+        <param name="range_max" value="20.0" />
+        <param name="use_inf" value="true" />
+        <param name="concurrency_level" value="1" />
+    </node>
+
+</launch>

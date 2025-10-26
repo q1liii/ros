@@ -1,0 +1,39 @@
+<launch>
+
+      <node pkg="map_server" type="map_server" name="map_server" 
+            args="$(find final)/maps/my_map.yaml"/>
+
+
+      <!-- ========== 1. LiDAR 驱动（继续10Hz） ========== -->
+      <include file="$(find livox_ros_driver2)/launch_ROS1/msg_MID360.launch"/>
+
+      <!-- ========== 2. FAST-LIO2（只提供 odometry，无建图） ========== -->
+      <include file="$(find fast_lio)/launch/mapping_mid360.launch">
+            <arg name="rviz" value="false"/>
+      </include>
+
+      <!-- ========== 3. TF 链路 ========== -->
+      <node pkg="tf2_ros" type="static_transform_publisher" name="camera_to_odom"
+        args="0 0 0 0 0 0 camera_init odom" />
+      <node pkg="tf2_ros" type="static_transform_publisher" name="body_to_base"
+        args="0 0 0 0 0 0 body base_link" />
+      <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_laser"
+        args="0 0 0 0 0 0 base_link laser_link" />
+
+      <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan" output="screen">
+            <remap from="cloud_in" to="/cloud_registered"/>
+            <remap from="scan" to="/scan"/>
+            <param name="target_frame" value="laser_link"/>
+            <param name="transform_tolerance" value="10.0"/>  <!-- 关键！ -->
+            <param name="min_height" value="0.0"/>
+            <param name="max_height" value="2.0"/>
+            <param name="angle_min" value="-3.14159"/>
+            <param name="angle_max" value="3.14159"/>
+            <param name="range_min" value="0.3"/>
+            <param name="range_max" value="20.0"/>
+      </node>
+      <!-- ========== 6. 导航栈（用静态 /map） ========== -->
+      <include file="$(find final)/launch/navigation.launch">
+            <arg name="use_rviz" value="true"/>
+      </include>
+</launch>

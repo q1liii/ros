@@ -1,0 +1,49 @@
+DWAPlannerROS:
+  # ========== 机器人配置（根据你的实际情况修改） ==========
+  max_vel_x: 0.5                   # 最大线速度
+  min_vel_x: 0.0                   
+  max_vel_y: 0.0                   # 差速驱动y方向为0
+  min_vel_y: 0.0
+  
+  max_vel_trans: 0.5               # 最大平移速度
+  min_vel_trans: 0.1               # 最小平移速度
+  trans_stopped_vel: 0.1
+  
+  max_vel_theta: 1.0               # 最大角速度
+  min_vel_theta: 0.4               # 最小角速度
+  theta_stopped_vel: 0.4
+  
+  acc_lim_x: 2.5                   # x加速度限制
+  acc_lim_y: 0.0
+  acc_lim_theta: 3.2               # 角加速度限制
+  acc_lim_trans: 0.3
+  
+  # ========== 目标容差 ==========
+  xy_goal_tolerance: 0.2           # 位置容差
+  yaw_goal_tolerance: 0.2          # 角度容差
+  latch_xy_goal_tolerance: false
+  
+  # ========== 轨迹采样 ==========
+  sim_time: 2.0                    # 前向模拟时间
+  sim_granularity: 0.025           # 模拟粒度
+  vx_samples: 10                   # x方向速度采样数
+  vy_samples: 0                    # y方向（差速为0）
+  vtheta_samples: 20               # 角速度采样数
+  
+  # ========== 轨迹评分权重 ==========
+  path_distance_bias: 32.0         # 路径跟踪权重
+  goal_distance_bias: 24.0         # 目标距离权重
+  occdist_scale: 0.01              # 障碍物代价权重
+  forward_point_distance: 0.325
+  stop_time_buffer: 0.2
+  scaling_speed: 0.25
+  max_scaling_factor: 0.2
+  
+  # ========== 振荡预防 ==========
+  oscillation_reset_dist: 0.05
+  oscillation_reset_angle: 0.2
+  
+  # ========== 其他 ==========
+  prune_plan: true
+  publish_traj_pc: true
+  publish_cost_grid_pc: true

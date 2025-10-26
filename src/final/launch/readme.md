@@ -1,0 +1,8 @@
+10.21技术日志
+版本1：full_navigation.launch
+问题：雷达发布10hz的动态地图，导致地图不断更新，amcl反复更新，但是话题不匹配导致amcl一直在初始位置，进一步导致生成路径的失败
+
+解决思路：转为手动控制建图得到静态地图，再调用静态地图喂给amcl，同时雷达发布2d/scan数据和3d点云做重定位
+mapping.launch用于手动建图
+localization.launch用于重定位
+navigation.launch用于导航

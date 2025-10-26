@@ -1,0 +1,164 @@
+%YAML:1.1
+---
+Visualization Manager.0:
+  Class: ""
+  Displays:
+    - Alpha: 0.5
+      Class: rviz/Map
+      Color: 255; 255; 255
+      Name: Projected Map
+      Topic: /projected_map
+      Update Interval: 0
+      Use Timestamp: false
+      Value: true
+    - Alpha: 1.0
+      Class: rviz/PointCloud2
+      Color: 255; 255; 255
+      Color Transformer: Intensity
+      Decay Time: 0
+      Max Color Component: 1
+      Min Color Component: 0
+      Name: Cloud Registered
+      Position Transformer: XYZ
+      Queue Size: 10
+      Size (m): 0.02
+      Size (Pixels): 1
+      Style: Points
+      Topic: /cloud_registered
+      Use rainbow: false
+      Value: true
+    - Alpha: 1.0
+      Class: rviz/PointCloud2
+      Color: 255; 0; 0
+      Color Transformer: Flat Color
+      Decay Time: 0
+      Max Color Component: 1
+      Min Color Component: 0
+      Name: Raw LiDAR
+      Position Transformer: XYZ
+      Queue Size: 10
+      Size (m): 0.05
+      Size (Pixels): 3
+      Style: Points
+      Topic: /livox/lidar
+      Use rainbow: false
+      Value: true
+    - Class: rviz/Grid
+      Color: 48; 48; 48
+      Constant Alpha: true
+      Line Style:
+        Alpha: 0.8
+        Line Width: 0.012
+        Value: Line
+      Name: Grid
+      Normal Cell Count: 0
+      Offset:
+        X: 0.0
+        Y: 0.0
+        Z: 0.0
+      Plane: XY
+      Plane Cell Count: 10
+      Reference Frame: <Fixed Frame>
+      Style:
+        Alpha: 0.5
+        Value: Lines
+      Value: true
+    - Class: rviz/TF
+      Frame Timeout: 15
+      Marker Scale: 1.0
+      Name: TF
+      Show Arrows: true
+      Show Axes: true
+      Show Names: true
+      Show Path: true
+      Tree Type: All
+      Update Interval: 0
+      Value: true
+    - Class: rviz/RobotModel
+      Description Topic: robot_description
+      Name: RobotModel
+      TF Prefix: ""
+      Value: false
+    - Class: rviz/LaserScan
+      Topic: /scan
+      Value: false
+  Enabled: true
+  Global Options:
+    Background Color: 48; 48; 48
+    Default Light: true
+    Fixed Frame: camera_init
+    Frame Rate: 30
+    Marker Scale: 1.0
+    Name: root
+    Selection Highlight Color: 255; 165; 0
+    Stereoscopic: 0
+    Value: true
+    Views:
+      Current:
+        Class: rviz/Orbit
+        Distance: 10.0
+        Enable Stereo Rendering:
+          Stereo Eye Separation: 0.06
+          Stereo Focal Distance: 1
+          Swap Stereo Eyes: false
+          Value: false
+        Focal Point:
+          X: 0.0
+          Y: 0.0
+          Z: 0.0
+        Focal Shape Fixed Size: true
+        Focal Shape Size: 0.05
+        Invert Z Axis: false
+        Name: Current View
+        Near Clip Distance: 0.01
+        Orthographic: false
+        Pitch: 0.785
+        Target Frame: camera_init
+        Value: Orbit (rviz)
+        Yaw: 1.57
+        Z Max: 100.0
+        Z Min: -100.0
+  Tools:
+    - Class: rviz/Interact
+      Hide Inactive Objects: true
+    - Class: rviz/MoveCamera
+    - Class: rviz/Select
+    - Class: rviz/FocusCamera
+    - Class: rviz/Measure
+    - Class: rviz/SetInitialPose
+      Theta std deviation: 0.2618
+      Topic: /initialpose
+      X std deviation: 0.5
+      Y std deviation: 0.5
+    - Class: rviz/SetGoal
+      Topic: /move_base_simple/goal
+    - Class: rviz/PublishPoint
+      Single click: true
+      Topic: /clicked_point
+  Value: true
+  Views:
+    Current:
+      Class: rviz/Orbit
+      Distance: 10.0
+      Enable Stereo Rendering:
+        Stereo Eye Separation: 0.06
+        Stereo Focal Distance: 1
+        Swap Stereo Eyes: false
+        Value: false
+      Focal Point:
+        X: 0.0
+        Y: 0.0
+        Z: 0.0
+      Focal Shape Fixed Size: true
+      Focal Shape Size: 0.05
+      Invert Z Axis: false
+      Name: Current View
+      Near Clip Distance: 0.01
+      Orthographic: false
+      Pitch: 0.785
+      Target Frame: camera_init
+      Value: Orbit (rviz)
+      Yaw: 1.57
+      Z Max: 100.0
+      Z Min: -100.0
+    Saved: ~

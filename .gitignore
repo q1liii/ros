@@ -1,0 +1,39 @@
+# 构建目录
+build/
+devel/
+install/
+log/
+
+# CMake 生成的文件
+CMakeLists.txt.user
+cmake_install.cmake
+CMakeCache.txt
+
+# 编译生成的二进制文件
+*.o
+*.so
+*.a
+
+# Python 缓存
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 其他临时文件
+.*.swp
+*~
+
+# 特定于 catkin 的
+.catkin_tools/
+CATKIN_IGNORE
+
+# 特定于 colcon 的
+.colcon/
+colcon.log
+colcon-build/
+colcon-install/
+colcon-log/
+
+# 备份文件
+*.bak
+*.backup

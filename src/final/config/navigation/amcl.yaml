@@ -1,0 +1,57 @@
+# AMCL 手持设备专用配置
+amcl:
+  # ========== 基本设置 ==========
+  use_map_topic: false
+  odom_model_type: "diff"
+  
+  # ========== 增加粒子数（补偿无里程计） ==========
+  min_particles: 500              # 增加到1000
+  max_particles: 2500              # 增加到5000
+  
+  # ========== 放宽更新阈值（小幅运动也更新） ==========
+  update_min_d: 0.05              # 移动5cm就更新
+  update_min_a: 0.1                # 旋转0.1rad就更新
+  resample_interval: 1
+  
+  # ========== 坐标系 ==========
+  odom_frame_id: "odom"
+  base_frame_id: "base_link"
+  global_frame_id: "map"
+  
+  # ========== 激光权重提高（补偿无里程计） ==========
+  laser_max_beams: 120             # 使用更多激光束
+  laser_z_hit: 0.8                 # 提高命中权重
+  laser_z_short: 0.05
+  laser_z_max: 0.05
+  laser_z_rand: 0.1                # 降低随机噪声
+  laser_sigma_hit: 0.15
+  laser_model_type: "likelihood_field"
+  initial_pose_x: 0.0
+  initial_pose_y: 0.0
+  initial_pose_a: 0.0
+  # ========== 里程计噪声放大（因为没有真实里程计） ==========
+  odom_alpha1: 0.4                 # 旋转噪声加大
+  odom_alpha2: 0.4
+  odom_alpha3: 1.0                 # 平移噪声加大
+  odom_alpha4: 0.4
+  
+  # ========== TF容差放宽 ==========
+  tf_broadcast: true
+  transform_tolerance: 10.0         # 放宽到1秒
+  
+  # ========== 恢复参数调整 ==========
+  recovery_alpha_slow: 0.0         # 关闭慢速恢复
+  recovery_alpha_fast: 0.0         # 关闭快速恢复
+  
+  # ========== 初始位姿协方差放大 ==========
+  initial_cov_xx: 0.5
+  initial_cov_yy: 0.5
+  initial_cov_aa: 0.2
+  # 防高频地图更新
+  map_update_interval: 10.0          # 10秒才更新地图
+  # 手持设备优化
+  min_particles: 1000
+  max_particles: 3000
+  update_min_d: 0.1                   # 更敏感更新
+  update_min_a: 0.2
+  laser_max_range: 20.0               # 匹配laserscan

@@ -1,0 +1,30 @@
+<launch>
+    <!-- ========== 1. LiDAR 驱动（保持10Hz） ========== -->
+    <include file="$(find livox_ros_driver2)/launch_ROS1/msg_MID360.launch"/>
+
+    <!-- ========== 2. FAST-LIO2 建图 ========== -->
+    <include file="$(find fast_lio)/launch/mapping_mid360.launch">
+        <arg name="rviz" value="false"/>
+    </include>
+
+    <!-- ========== 3. TF 链路（假里程计） ========== -->
+    <node pkg="tf2_ros" type="static_transform_publisher" name="odom_to_base" 
+          args="0 0 0 0 0 0 1 odom base_link"/>
+    <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_camera" 
+          args="0 0 0 0 0 0 1 base_link camera_init"/>
+
+    <!-- ========== 4. OctoMap 3D 地图（高频正常） ========== -->
+    <node pkg="octomap_server" type="octomap_server_node" name="octomap_server" output="screen">
+        <remap from="cloud_in" to="/cloud_registered"/>
+        <param name="resolution" value="0.1"/>
+        <param name="frame_id" value="camera_init"/>
+        <param name="publish_occupancy_grid" value="true"/>
+        <param name="sensor_model/max_range" value="20.0"/>
+        <param name="pointcloud_min_z" value="-0.5"/>
+        <param name="pointcloud_max_z" value="2.0"/>
+    </node>
+
+    <!-- ========== 5. RViz 建图可视化 ========== -->
+    <node pkg="rviz" type="rviz" name="rviz_mapping" 
+          args="-d $(find final)/rviz/mapping.rviz"/>
+</launch>
